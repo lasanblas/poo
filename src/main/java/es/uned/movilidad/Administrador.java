@@ -35,6 +35,27 @@ public class Administrador extends Persona {
     }
 
     /**
+     * Crea un usuario administrador y lo añade al sistema.
+     *
+     * @param dni            DNI del usuario.
+     * @param nombre         Nombre del usuario.
+     * @param apellidos      Apellidos del usuario.
+     * @param numeroTelefono Número de teléfono del usuario.
+     * @param email          Email del usuario.
+     * @return Usuario administrador creado.
+     */
+    public Administrador crearUsuarioAdministrador(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
+        Persona persona = buscarPersona(dni);
+        if(persona != null){
+            System.out.println("El usuario ya existe");
+            return null;
+        }
+        Administrador usuario = new Administrador(dni, nombre, apellidos, numeroTelefono, email);
+        personas.add(usuario);
+        return usuario;
+    }
+
+    /**
      * Crea un usuario estándar y lo añade al sistema.
      *
      * @param dni            DNI del usuario.
@@ -43,15 +64,17 @@ public class Administrador extends Persona {
      * @param numeroTelefono Número de teléfono del usuario.
      * @param email          Email del usuario.
      * @param saldo          Saldo inicial del usuario.
+     * @return Usuario creado.
      */
-    public void crearUsuario(String dni, String nombre, String apellidos, Integer numeroTelefono, String email, Integer saldo) {
+    public Usuario crearUsuario(String dni, String nombre, String apellidos, Integer numeroTelefono, String email, Integer saldo) {
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
-            return;
+            return null;
         }
         Usuario usuario = new Usuario(dni, nombre, apellidos, numeroTelefono, email, TipoUsuario.ESTANDAR, saldo.doubleValue());
         personas.add(usuario);
+        return usuario;
     }
 
     /**
@@ -63,15 +86,17 @@ public class Administrador extends Persona {
      * @param numeroTelefono Número de teléfono del usuario.
      * @param email          Email del usuario.
      * @param saldo          Saldo inicial del usuario.
+     * @return Usuario premium creado.
      */
-    public void crearUsuarioPremium(String dni, String nombre, String apellidos, Integer numeroTelefono, String email, Integer saldo) {
+    public Usuario crearUsuarioPremium(String dni, String nombre, String apellidos, Integer numeroTelefono, String email, Integer saldo) {
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
-            return;
+            return null;
         }
         Usuario usuario = new Usuario(dni, nombre, apellidos, numeroTelefono, email, TipoUsuario.PREMIUM, saldo.doubleValue());
         personas.add(usuario);
+        return usuario;
     }
 
     /**
@@ -82,15 +107,17 @@ public class Administrador extends Persona {
      * @param apellidos      Apellidos del mecánico.
      * @param numeroTelefono Número de teléfono del mecánico.
      * @param email          Email del mecánico.
+     * @return Mecánico creado.
      */
-    public void crearMecanico(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
+    public Mecanico crearMecanico(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
-            return;
+            return null;
         }
         Mecanico mecanico = new Mecanico(dni, nombre, apellidos, numeroTelefono, email);
         personas.add(mecanico);
+        return mecanico;
     }
 
     /**
@@ -101,15 +128,17 @@ public class Administrador extends Persona {
      * @param apellidos      Apellidos del encargado.
      * @param numeroTelefono Número de teléfono del encargado.
      * @param email          Email del encargado.
+     * @return Encargado de mantenimiento creado.
      */
-    public void crearEncargadoManetimiento(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
+    public EncargadoMantenimiento crearEncargadoManetimiento(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
-            return;
+            return null;
         }
         EncargadoMantenimiento encargadoMantenimiento = new EncargadoMantenimiento(dni, nombre, apellidos, numeroTelefono, email);
         personas.add(encargadoMantenimiento);
+        return encargadoMantenimiento;
     }
 
     /**
@@ -239,15 +268,17 @@ public class Administrador extends Persona {
      * @param matricula    Matrícula de la moto.
      * @param coordenadaX  Coordenada X de la ubicación inicial.
      * @param coordenadaY  Coordenada Y de la ubicación inicial.
+     * @return Moto creada.
      */
-    public void crearMotoPequena(String marca, String modelo, String matricula, Integer coordenadaX, Integer coordenadaY) {
+    public Moto crearMotoPequena(String marca, String modelo, String matricula, Integer coordenadaX, Integer coordenadaY) {
         Vehiculo vehiculo = buscarVehiculo(matricula);
         if(vehiculo != null){
             System.out.println("El vehículo ya existe");
-            return;
+            return null;
         }
         Moto moto = new Moto(matricula, marca, modelo, null, TipoMoto.PEQUENA, coordenadaX, coordenadaY);
         vehiculos.add(moto);
+        return moto;
     }
 
     /**
@@ -258,15 +289,17 @@ public class Administrador extends Persona {
      * @param matricula    Matrícula de la moto.
      * @param coordenadaX  Coordenada X de la ubicación inicial.
      * @param coordenadaY  Coordenada Y de la ubicación inicial.
+     * @return Moto creada.
      */
-    public void crearMotoGrande(String marca, String modelo, String matricula, Integer coordenadaX, Integer coordenadaY) {
+    public Moto crearMotoGrande(String marca, String modelo, String matricula, Integer coordenadaX, Integer coordenadaY) {
         Vehiculo vehiculo = buscarVehiculo(matricula);
         if(vehiculo != null){
             System.out.println("El vehículo ya existe");
-            return;
+            return null;
         }
         Moto moto = new Moto(matricula, marca, modelo, null, TipoMoto.GRANDE, coordenadaX, coordenadaY);
         vehiculos.add(moto);
+        return moto;
     }
 
     /**
@@ -276,17 +309,18 @@ public class Administrador extends Persona {
      * @param modelo      Modelo de la bicicleta.
      * @param matricula   Matrícula de la bicicleta.
      * @param nombreBase  Nombre de la base donde se ubicará.
+     * @return Bicicleta creada.
      */
-    public void crearBicicleta(String marca, String modelo, String matricula, String nombreBase) {
+    public Bicicleta crearBicicleta(String marca, String modelo, String matricula, String nombreBase) {
         Vehiculo vehiculo = buscarVehiculo(matricula);
         if(vehiculo != null){
             System.out.println("El vehículo ya existe");
-            return;
+            return null;
         }
         Base base = this.buscarBase(nombreBase);
         if(base == null){
             System.out.println("La base no existe");
-            return;
+            return null;
         }
         if(base.getPlazas() == 0){
             System.out.println("No hay plazas disponibles en la base " + base.getNombre());
@@ -294,7 +328,9 @@ public class Administrador extends Persona {
             Bicicleta bicicleta = new Bicicleta(matricula, marca, modelo, base);
             base.setPlazas(base.getPlazas() - 1);
             vehiculos.add(bicicleta);
+            return bicicleta;
         }
+        return null;
     }
 
     /**
@@ -304,17 +340,18 @@ public class Administrador extends Persona {
      * @param modelo      Modelo del patinete.
      * @param matricula   Matrícula del patinete.
      * @param nombreBase  Nombre de la base donde se ubicará.
+     * @return Patinete creada.
      */
-    public void crearPatinete(String marca, String modelo, String matricula, String nombreBase) {
+    public Patinete crearPatinete(String marca, String modelo, String matricula, String nombreBase) {
         Vehiculo vehiculo = buscarVehiculo(matricula);
         if(vehiculo != null){
             System.out.println("El vehículo ya existe");
-            return;
+            return null;
         }
         Base base = this.buscarBase(nombreBase);
         if(base == null){
             System.out.println("La base no existe");
-            return;
+            return null;
         }
         if(base.getPlazas() == 0){
             System.out.println("No hay plazas disponibles en la base " + base.getNombre());
@@ -322,7 +359,9 @@ public class Administrador extends Persona {
             Patinete patinete = new Patinete(matricula, marca, modelo, base);
             base.setPlazas(base.getPlazas() - 1);
             vehiculos.add(patinete);
+            return patinete;
         }
+        return null;
     }
 
     /**
@@ -396,10 +435,17 @@ public class Administrador extends Persona {
      * @param coordenadaX  Coordenada X de la ubicación de la base.
      * @param coordenadaY  Coordenada Y de la ubicación de la base.
      * @param plazas       Número de plazas disponibles en la base.
+     * @return Base creada.
      */
-    public void crearBase(String nombre, Integer coordenadaX, Integer coordenadaY, Integer plazas) {
-        Base base = new Base(nombre, coordenadaX, coordenadaY, plazas);
-        bases.add(base);
+    public Base crearBase(String nombre, Integer coordenadaX, Integer coordenadaY, Integer plazas) {
+        Base baseCreada = buscarBase(nombre);
+        if(baseCreada == null) {
+            Base base = new Base(nombre, coordenadaX, coordenadaY, plazas);
+            bases.add(base);
+            return base;
+        }
+        System.out.println("La base ya existe");
+        return null;
     }
 
     /**
@@ -451,14 +497,17 @@ public class Administrador extends Persona {
      * @param nombre       Nombre de la tarifa.
      * @param importe      Importe de la tarifa.
      * @param descuento    Descuento aplicado a la tarifa.
+     * @return Tarifa creada.
      */
-    public void crearTarifa(String tipoVehiculo, String nombre, Double importe, Double descuento){
+    public Tarifa crearTarifa(String tipoVehiculo, String nombre, Double importe, Double descuento){
         TipoVehiculo tipo = TipoVehiculo.get(tipoVehiculo);
         if(tipo == null){
             System.out.println("El tipo de vehículo no es correcto. Por favor, vuelva a intentarlo. Los tipos disponibles son: " + TipoVehiculo.BICICLETA.name() + ", " + TipoVehiculo.PATINETE.name() + ", " + TipoVehiculo.MOTOPEQUENA.name() + " y " + TipoVehiculo.MOTOPEQUENA.name());
-            return;
+            return null;
         }
-        tarifas.add(new Tarifa(tipo, nombre, importe, descuento));
+        Tarifa tarifa = new Tarifa(tipo, nombre, importe, descuento);
+        tarifas.add(tarifa);
+        return tarifa;
     }
 
     /**
@@ -699,17 +748,17 @@ public class Administrador extends Persona {
                 if(filtrar){
                     for (Reparacion reparacion : vehiculo.getReparaciones()) {
                         if (reparacion.getFechaReparacion().isAfter(fechaInicio) && reparacion.getFechaReparacion().isBefore(fechaFin)) {
-                            System.out.println("El vehículo con matrícula " + vehiculo.getMatricula() + " ha sido reparado el " + reparacion.getFechaReparacion() + " por un importe de " + reparacion.getImporte());
+                            System.out.println("El vehículo con matrícula " + vehiculo.getMatricula() + " ha sido reparado el " + reparacion.getFechaReparacion() + " por un importe de " + reparacion.getFactura().getImporte());
                             reparaciones++;
-                            importe += reparacion.getImporte();
+                            importe += reparacion.getFactura().getImporte();
                         }
                     }
                     System.out.println("Total de reparaciones del vehículo: " + vehiculo.getReparaciones().size() + ", por un importe total de " + importe+ "\n");
                 }else {
                     for (Reparacion reparacion : vehiculo.getReparaciones()) {
-                        System.out.println("El vehículo con matrícula " + vehiculo.getMatricula() + " ha sido reparado el " + reparacion.getFechaReparacion() + " por un importe de " + reparacion.getImporte());
+                        System.out.println("El vehículo con matrícula " + vehiculo.getMatricula() + " ha sido reparado el " + reparacion.getFechaReparacion() + " por un importe de " + reparacion.getFactura().getImporte());
                         reparaciones++;
-                        importe += reparacion.getImporte();
+                        importe += reparacion.getFactura().getImporte();
                     }
                     System.out.println("Total de reparaciones del vehículo: " + vehiculo.getReparaciones().size() + ", por un importe total de " + importe + "\n");
                 }

@@ -273,7 +273,7 @@ public class MovilidadApplication {
 			System.out.println("\n");
 
 			System.out.println("Generación de facturas por la reparación de un vehículo o una base de bicicletas o patinetes");
-			mecanico.generarFactura("1234-QRS", null, 10.0);
+			mecanico.generarFactura("1234-QRS", null, 10.0, "123456", false);
 			System.out.println("\n");
 
 			EncargadoMantenimiento encargadoMantenimiento = (EncargadoMantenimiento) buscarPersona("35611496K");
@@ -318,7 +318,7 @@ public class MovilidadApplication {
 			System.out.println("\n");
 
 			System.out.println("Generación de facturas por la reparación de un vehículo o una base de bicicletas o patinetes");
-			mecanico.generarFactura(null, "Base 1", 20.0);
+			mecanico.generarFactura(null, "Base 1", 20.0, "321654", false);
 			System.out.println("\n");
 
 			usuario.visualizarVehiculosDisponibles();

@@ -9,22 +9,21 @@ public class Reparacion {
 
     private final Vehiculo vehiculo; // Vehículo que ha sido reparado
     private final Base base; // Base donde se realizó la reparación
-    private final Double importe; // Importe de la reparación
     private final LocalDate fechaReparacion; // Fecha en la que se realizó la reparación
+    private final Factura factura; // Factura generada para la reparación
 
     /**
      * Constructor de la clase Reparacion.
      *
      * @param vehiculo Vehículo que ha sido reparado.
      * @param base Base donde se realizó la reparación.
-     * @param importe Importe de la reparación.
      * @param fechaReparacion Fecha en la que se realizó la reparación.
      */
-    public Reparacion(Vehiculo vehiculo, Base base, Double importe, LocalDate fechaReparacion) {
+    public Reparacion(Vehiculo vehiculo, Base base, LocalDate fechaReparacion, Factura factura) {
         this.vehiculo = vehiculo;
         this.base = base;
-        this.importe = importe;
         this.fechaReparacion = fechaReparacion;
+        this.factura = factura;
     }
 
     /**
@@ -46,15 +45,6 @@ public class Reparacion {
     }
 
     /**
-     * Obtiene el importe de la reparación.
-     *
-     * @return Importe de la reparación.
-     */
-    public Double getImporte() {
-        return importe;
-    }
-
-    /**
      * Obtiene la fecha en la que se realizó la reparación.
      *
      * @return Fecha de la reparación.
@@ -64,24 +54,12 @@ public class Reparacion {
     }
 
     /**
-     * Genera una factura para el vehículo reparado.
+     * Obtiene la factura generada para la reparación.
      *
-     * @return Cadena que representa la factura del vehículo.
+     * @return Factura de la reparación.
      */
-    public String imprimirFacturaVehiculo() {
-        return "Factura:\n" +
-                "Vehículo: " + vehiculo.getMatricula() + "\n" +
-                "Importe: " + importe + "€\n";
+    public Factura getFactura() {
+        return factura;
     }
 
-    /**
-     * Genera una factura para la base donde se realizó la reparación.
-     *
-     * @return Cadena que representa la factura de la base.
-     */
-    public String imprimirFacturaBase() {
-        return "Factura:\n" +
-                "Base: " + base.getNombre() + "\n" +
-                "Importe: " + importe + "€\n";
-    }
 }

@@ -253,43 +253,47 @@ public class Mecanico extends Persona {
      * @param matricula Matrícula del vehículo.
      * @param base      Nombre de la base.
      * @param importe   Importe de la reparación.
+     * @return La factura generada
      */
-    public void generarFactura(String matricula, String base, Double importe){
+    public Factura generarFactura(String matricula, String base, Double importe, String numeroFactura, boolean pagada) {
         if(importe == null || importe <= 0){
             System.out.println("El importe no puede ser nulo o menor o igual a cero");
-            return;
+            return null;
 
         }
         if(matricula != null && !matricula.isEmpty()){
             Vehiculo vehiculo = this.buscarVehiculo(matricula);
             if(vehiculo == null){
                 System.out.println("El vehículo no existe");
-                return;
+                return null;
             }
-            Reparacion reparacion = new Reparacion(vehiculo, null, importe, LocalDate.now());
+            Factura factura = new Factura(numeroFactura, importe, pagada);
+            Reparacion reparacion = new Reparacion(vehiculo, null, LocalDate.now(), factura);
             this.baseEnReparacion = null;
             vehiculo.addReparacion(reparacion);
             numeroDeReparaciones++;
             vehiculos.remove(vehiculo);
             vehiculo.limpiarAvisos();
-            System.out.println(reparacion.imprimirFacturaVehiculo());
+            return factura;
         }
         else if(base != null && !base.isEmpty()){
             Base resultado = this.buscarBase(base);
             if(resultado == null){
                 System.out.println("La base no existe");
-                return;
+                return null;
             }
-            Reparacion reparacion = new Reparacion(null, resultado, importe, LocalDate.now());
+            Factura factura = new Factura(numeroFactura, importe, pagada);
+            Reparacion reparacion = new Reparacion(null, resultado, LocalDate.now(), factura);
             this.baseEnReparacion = null;
             resultado.addReparacion(reparacion);
             numeroDeReparaciones++;
             bases.remove(resultado);
             resultado.limpiarAvisos();
-            System.out.println(reparacion.imprimirFacturaBase());
+            return factura;
         } else {
             System.out.println("No se ha indicado ni vehículo ni base");
         }
+        return null;
     }
 
     /**
