@@ -404,6 +404,11 @@ public class Usuario extends Persona {
             System.out.println("Las bicicletas y patinetes se deben finalizar en una base. Por favor, vuelva a intentarlo.");
             return;
         }
+        if(this.existeMotoEnCoordenadas(coordenadaXFin, coordenadaYFin)){
+            System.out.println("Ya existe una moto aparcada en las coordenadas [" + coordenadaXFin + "," + coordenadaYFin + "]. Por favor, vuelva a intentarlo.");
+            return;
+
+        }
         System.out.println("Aparcando el vehículo en las coordenadas [" + coordenadaXFin + "," + coordenadaYFin + "]");
         this.alquiler.setCoordenadaXFinal(coordenadaXFin);
         this.alquiler.setCoordenadaYFinal(coordenadaYFin);
@@ -791,5 +796,21 @@ public class Usuario extends Persona {
         long diferencia = new Date().getTime() - fechaReserva.getTime();
         long segundos = diferencia / 1000;
         return segundos / 60;
+    }
+
+    /**
+     * Verifica si existe una bicicleta en las coordenadas dadas.
+     *
+     * @param coordenadaXBase Coordenada X de la bicicleta.
+     * @param coordenadaYBase Coordenada Y de la bicicleta.
+     * @return true si existe una bicicleta en las coordenadas, false en caso contrario.
+     */
+    private boolean existeMotoEnCoordenadas(int coordenadaXBase, int coordenadaYBase){
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo instanceof Moto && ((Moto) vehiculo).getCoordenadaX() == coordenadaXBase && ((Moto) vehiculo).getCoordenadaY() == coordenadaYBase) {
+                return true;
+            }
+        }
+        return false;
     }
 }

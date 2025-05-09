@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static es.uned.movilidad.MovilidadApplication.bases;
+import static es.uned.movilidad.MovilidadApplication.coordenadaX;
+import static es.uned.movilidad.MovilidadApplication.coordenadaY;
 import static es.uned.movilidad.MovilidadApplication.personas;
 import static es.uned.movilidad.MovilidadApplication.tarifas;
 import static es.uned.movilidad.MovilidadApplication.vehiculos;
@@ -45,6 +47,9 @@ public class Administrador extends Persona {
      * @return Usuario administrador creado.
      */
     public Administrador crearUsuarioAdministrador(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
+        if(!this.validarDatosEntradaUsuario(dni, nombre, apellidos, numeroTelefono, email, null, false)){
+            return null;
+        }
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
@@ -67,6 +72,9 @@ public class Administrador extends Persona {
      * @return Usuario creado.
      */
     public Usuario crearUsuario(String dni, String nombre, String apellidos, Integer numeroTelefono, String email, Integer saldo) {
+        if(!this.validarDatosEntradaUsuario(dni, nombre, apellidos, numeroTelefono, email, saldo, true)){
+            return null;
+        }
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
@@ -89,6 +97,9 @@ public class Administrador extends Persona {
      * @return Usuario premium creado.
      */
     public Usuario crearUsuarioPremium(String dni, String nombre, String apellidos, Integer numeroTelefono, String email, Integer saldo) {
+        if(!this.validarDatosEntradaUsuario(dni, nombre, apellidos, numeroTelefono, email, saldo, true)){
+            return null;
+        }
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
@@ -110,6 +121,9 @@ public class Administrador extends Persona {
      * @return Mecánico creado.
      */
     public Mecanico crearMecanico(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
+        if(!this.validarDatosEntradaUsuario(dni, nombre, apellidos, numeroTelefono, email, null, false)){
+            return null;
+        }
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
@@ -131,6 +145,9 @@ public class Administrador extends Persona {
      * @return Encargado de mantenimiento creado.
      */
     public EncargadoMantenimiento crearEncargadoManetimiento(String dni, String nombre, String apellidos, Integer numeroTelefono, String email) {
+        if(!this.validarDatosEntradaUsuario(dni, nombre, apellidos, numeroTelefono, email, null, false)){
+            return null;
+        }
         Persona persona = buscarPersona(dni);
         if(persona != null){
             System.out.println("El usuario ya existe");
@@ -266,17 +283,25 @@ public class Administrador extends Persona {
      * @param marca        Marca de la moto.
      * @param modelo       Modelo de la moto.
      * @param matricula    Matrícula de la moto.
-     * @param coordenadaX  Coordenada X de la ubicación inicial.
-     * @param coordenadaY  Coordenada Y de la ubicación inicial.
+     * @param coordenadaXInicio  Coordenada X de la ubicación inicial.
+     * @param coordenadaYInicio  Coordenada Y de la ubicación inicial.
      * @return Moto creada.
      */
-    public Moto crearMotoPequena(String marca, String modelo, String matricula, Integer coordenadaX, Integer coordenadaY) {
+    public Moto crearMotoPequena(String marca, String modelo, String matricula, Integer coordenadaXInicio, Integer coordenadaYInicio) {
         Vehiculo vehiculo = buscarVehiculo(matricula);
         if(vehiculo != null){
             System.out.println("El vehículo ya existe");
             return null;
         }
-        Moto moto = new Moto(matricula, marca, modelo, null, TipoMoto.PEQUENA, coordenadaX, coordenadaY);
+        if(coordenadaXInicio == null || coordenadaYInicio == null || coordenadaXInicio < 0 || coordenadaYInicio < 0 || coordenadaXInicio > coordenadaX || coordenadaYInicio > coordenadaY){
+            System.out.println("Las coordenadas indicadas no son correctas. Por favor, vuelva a intentarlo.");
+            return null;
+        }
+        if(existeMotoEnCoordenadas(coordenadaXInicio, coordenadaYInicio)){
+            System.out.println("Ya existe una moto en las coordenadas indicadas");
+            return null;
+        }
+        Moto moto = new Moto(matricula, marca, modelo, null, TipoMoto.PEQUENA, coordenadaXInicio, coordenadaYInicio);
         vehiculos.add(moto);
         return moto;
     }
@@ -287,17 +312,25 @@ public class Administrador extends Persona {
      * @param marca        Marca de la moto.
      * @param modelo       Modelo de la moto.
      * @param matricula    Matrícula de la moto.
-     * @param coordenadaX  Coordenada X de la ubicación inicial.
-     * @param coordenadaY  Coordenada Y de la ubicación inicial.
+     * @param coordenadaXInicio  Coordenada X de la ubicación inicial.
+     * @param coordenadaYInicio  Coordenada Y de la ubicación inicial.
      * @return Moto creada.
      */
-    public Moto crearMotoGrande(String marca, String modelo, String matricula, Integer coordenadaX, Integer coordenadaY) {
+    public Moto crearMotoGrande(String marca, String modelo, String matricula, Integer coordenadaXInicio, Integer coordenadaYInicio) {
         Vehiculo vehiculo = buscarVehiculo(matricula);
         if(vehiculo != null){
             System.out.println("El vehículo ya existe");
             return null;
         }
-        Moto moto = new Moto(matricula, marca, modelo, null, TipoMoto.GRANDE, coordenadaX, coordenadaY);
+        if(coordenadaXInicio == null || coordenadaYInicio == null || coordenadaXInicio < 0 || coordenadaYInicio < 0 || coordenadaXInicio > coordenadaX || coordenadaYInicio > coordenadaY){
+            System.out.println("Las coordenadas indicadas no son correctas. Por favor, vuelva a intentarlo.");
+            return null;
+        }
+        if(existeMotoEnCoordenadas(coordenadaXInicio, coordenadaYInicio)){
+            System.out.println("Ya existe una moto en las coordenadas indicadas");
+            return null;
+        }
+        Moto moto = new Moto(matricula, marca, modelo, null, TipoMoto.GRANDE, coordenadaXInicio, coordenadaYInicio);
         vehiculos.add(moto);
         return moto;
     }
@@ -432,15 +465,24 @@ public class Administrador extends Persona {
      * Crea una base y la añade al sistema.
      *
      * @param nombre       Nombre de la base.
-     * @param coordenadaX  Coordenada X de la ubicación de la base.
-     * @param coordenadaY  Coordenada Y de la ubicación de la base.
+     * @param coordenadaXBase  Coordenada X de la ubicación de la base.
+     * @param coordenadaYBase  Coordenada Y de la ubicación de la base.
      * @param plazas       Número de plazas disponibles en la base.
      * @return Base creada.
      */
-    public Base crearBase(String nombre, Integer coordenadaX, Integer coordenadaY, Integer plazas) {
+    public Base crearBase(String nombre, Integer coordenadaXBase, Integer coordenadaYBase, Integer plazas) {
+        if(coordenadaXBase == null || coordenadaYBase == null || coordenadaXBase < 0 || coordenadaYBase < 0 || coordenadaXBase > coordenadaX || coordenadaYBase > coordenadaY){
+            System.out.println("Las coordenadas indicadas no son correctas. Por favor, vuelva a intentarlo.");
+            return null;
+        }
+        if(this.existeBaseEnCoordenadas(coordenadaXBase, coordenadaYBase)){
+            System.out.println("Ya existe una base en las coordenadas indicadas");
+            return null;
+
+        }
         Base baseCreada = buscarBase(nombre);
         if(baseCreada == null) {
-            Base base = new Base(nombre, coordenadaX, coordenadaY, plazas);
+            Base base = new Base(nombre, coordenadaXBase, coordenadaYBase, plazas);
             bases.add(base);
             return base;
         }
@@ -1102,6 +1144,64 @@ public class Administrador extends Persona {
             }
         }
         return moto && bicicleta && patinete;
+    }
+
+    /**
+     * Verifica si existe una base en las coordenadas dadas.
+     *
+     * @param coordenadaXBase Coordenada X de la base.
+     * @param coordenadaYBase Coordenada Y de la base.
+     * @return true si existe una base en las coordenadas, false en caso contrario.
+     */
+    private boolean existeBaseEnCoordenadas(int coordenadaXBase, int coordenadaYBase){
+        for (Base base : bases) {
+            if (base.getCoordenadaX() == coordenadaXBase && base.getCoordenadaY() == coordenadaYBase) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifica si existe una bicicleta en las coordenadas dadas.
+     *
+     * @param coordenadaXBase Coordenada X de la bicicleta.
+     * @param coordenadaYBase Coordenada Y de la bicicleta.
+     * @return true si existe una bicicleta en las coordenadas, false en caso contrario.
+     */
+    private boolean existeMotoEnCoordenadas(int coordenadaXBase, int coordenadaYBase){
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo instanceof Moto && ((Moto) vehiculo).getCoordenadaX() == coordenadaXBase && ((Moto) vehiculo).getCoordenadaY() == coordenadaYBase) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifica si los datos de entrada del usuario son válidos.
+     *
+     * @param dni       DNI del usuario.
+     * @param nombre    Nombre del usuario.
+     * @param apellidos Apellidos del usuario.
+     * @param telefono  Teléfono del usuario.
+     * @param email     Email del usuario.
+     * @param saldo     Saldo del usuario (opcional).
+     * @param esUsuario Indica si es un usuario o no.
+     * @return true si los datos son válidos, false en caso contrario.
+     */
+    private boolean validarDatosEntradaUsuario(String dni, String nombre, String apellidos, Integer telefono, String email, Integer saldo, boolean esUsuario) {
+        if (dni == null || dni.isEmpty() || nombre == null || nombre.isEmpty() || apellidos == null || apellidos.isEmpty() || telefono == null || telefono < 0 || email == null || email.isEmpty()) {
+            System.out.println("No se han introducido todos los datos necesarios");
+            return false;
+        }
+        if(esUsuario){
+            if(saldo == null || saldo < 0){
+                System.out.println("El saldo no puede ser nulo o negativo");
+                return false;
+            }
+        }
+        return true;
     }
 
 }

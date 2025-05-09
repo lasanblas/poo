@@ -18,11 +18,11 @@ public class MovilidadApplication {
 	/**
 	 * Coordenada X máxima del sistema.
 	 */
-	public static final Integer coordenadaX = 10;
+	public static Integer coordenadaX;
 	/**
 	 * Coordenada Y máxima del sistema.
 	 */
-	public static final Integer coordenadaY = 10;
+	public static Integer coordenadaY;
 	/**
 	 * Lista de vehículos registrados en el sistema.
 	 */
@@ -53,6 +53,9 @@ public class MovilidadApplication {
 	CommandLineRunner init() {
 		return args -> {
 			System.out.println("Inicializando Datos\n");
+
+			MovilidadApplication.coordenadaX = 10;
+			MovilidadApplication.coordenadaY = 10;
 
 			// Usuario administrador
 			Administrador administrador = new Administrador("49199346T", "Leo", "SS", 637232760, "nada@nada.com");
@@ -175,7 +178,7 @@ public class MovilidadApplication {
 //			administrador.buscarUsuario(null, null, null, null,true);
 //			System.out.println("\n");
 
-			// FLUJO DE ALQUILER Y RESERVA
+			//FLUJO DE ALQUILER Y RESERVA
 			System.out.println("alquilar bicicleta");
 			usuario.alquilarVehiculo("bicicleta", "Base 1", null, null);
 			Thread.sleep(60 * 1000);
@@ -273,7 +276,8 @@ public class MovilidadApplication {
 			System.out.println("\n");
 
 			System.out.println("Generación de facturas por la reparación de un vehículo o una base de bicicletas o patinetes");
-			mecanico.generarFactura("1234-QRS", null, 10.0, "123456", false);
+			Factura factura = mecanico.generarFactura("1234-QRS", null, 10.0, "123456", false);
+			factura.imprimirFactura();
 			System.out.println("\n");
 
 			EncargadoMantenimiento encargadoMantenimiento = (EncargadoMantenimiento) buscarPersona("35611496K");
@@ -318,7 +322,8 @@ public class MovilidadApplication {
 			System.out.println("\n");
 
 			System.out.println("Generación de facturas por la reparación de un vehículo o una base de bicicletas o patinetes");
-			mecanico.generarFactura(null, "Base 1", 20.0, "321654", false);
+			factura = mecanico.generarFactura(null, "Base 1", 20.0, "321654", true);
+			factura.imprimirFactura();
 			System.out.println("\n");
 
 			usuario.visualizarVehiculosDisponibles();
@@ -330,7 +335,7 @@ public class MovilidadApplication {
 			administrador.obtenerListadoBasesSegunDemanda(false);
 
 			System.out.println("obtener Listado Vehiculos Reparados");
-			administrador.obtenerListadoVehiculosReparados("01/05/2025", "04/05/2025");
+			administrador.obtenerListadoVehiculosReparados("01/05/2025", "10/05/2025");
 
 			System.out.println("obtener Listado Encargados Y Mecanicos");
 			administrador.obtenerListadoEncargadosYMecanicos();
@@ -340,7 +345,7 @@ public class MovilidadApplication {
 			System.out.println("\n");
 
 			System.out.println("obtener Listado Usuarios Segun Gasto En Alquiler");
-			administrador.obtenerListadoUsuariosSegunGastoEnAlquiler("01/05/2025", "04/05/2025");
+			administrador.obtenerListadoUsuariosSegunGastoEnAlquiler("01/05/2025", "10/05/2025");
 			System.out.println("\n");
 
 		};
