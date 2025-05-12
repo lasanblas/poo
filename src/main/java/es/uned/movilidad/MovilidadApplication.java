@@ -132,52 +132,6 @@ public class MovilidadApplication {
 			usuario.ubicarVehiculoMasCercano("moto grande", 1, 1);
 			System.out.println("\n");
 
-			// FLUJO USUARIO A PROMOCIONAR
-//			System.out.println("alquilar bicicleta");
-//			usuario.alquilarVehiculo("bicicleta", "Base 1", null, null);
-//			Thread.sleep(60 * 1000);
-//			System.out.println("\n");
-//			usuario.finalizarAlquiler("Base 2");
-//			System.out.println("\n");
-//			usuario.visualizarVehiculosDisponibles();
-//			System.out.println("\n");
-//			usuario.visualizarHistoricoAlquileres();
-//			System.out.println("\n");
-//
-//			System.out.println("alquilar patinete");
-//			usuario.alquilarVehiculo("patinete", "Base 2", null, null);
-//			Thread.sleep(60 * 1000);
-//			System.out.println("\n");
-//			usuario.finalizarAlquiler("Base 1");
-//			System.out.println("\n");
-//			usuario.visualizarVehiculosDisponibles();
-//			System.out.println("\n");
-//			usuario.visualizarHistoricoAlquileres();
-//			System.out.println("\n");
-//
-//			System.out.println("alquilar moto");
-//			usuario.alquilarVehiculo("moto pequeña", null, 3, 3);
-//			Thread.sleep(60 * 1000);
-//			System.out.println("\n");
-//			usuario.finalizarAlquiler(4, 4);
-//			System.out.println("\n");
-//			usuario.visualizarVehiculosDisponibles();
-//			System.out.println("\n");
-//			usuario.visualizarHistoricoAlquileres();
-//			System.out.println("\n");
-//
-//			System.out.println("obtener Usuarios A Promocionar");
-//			administrador.obtenerUsuariosAPromocionar();
-//			System.out.println("\n");
-//
-//			System.out.println("Promocionar usuario");
-//			administrador.promocionarUsuario("14967154L");
-//			System.out.println("\n");
-//
-//			System.out.println("Buscando usuarios premium");
-//			administrador.buscarUsuario(null, null, null, null,true);
-//			System.out.println("\n");
-
 			//FLUJO DE ALQUILER Y RESERVA
 			System.out.println("alquilar bicicleta");
 			usuario.alquilarVehiculo("bicicleta", "Base 1", null, null);
@@ -329,13 +283,61 @@ public class MovilidadApplication {
 			usuario.visualizarVehiculosDisponibles();
 			System.out.println("\n");
 
+			// FLUJO USUARIO A PROMOCIONAR
+			usuario = (Usuario) buscarPersona("14967154L");
+			assert usuario != null;
+			System.out.println("alquilar bicicleta");
+			usuario.alquilarVehiculo("bicicleta", "Base 2", null, null);
+			Thread.sleep(60 * 1000);
+			System.out.println("\n");
+			usuario.finalizarAlquiler("Base 1");
+			System.out.println("\n");
+			usuario.visualizarVehiculosDisponibles();
+			System.out.println("\n");
+			usuario.visualizarHistoricoAlquileres();
+			System.out.println("\n");
+
+			System.out.println("alquilar patinete");
+			usuario.alquilarVehiculo("patinete", "Base 3", null, null);
+			Thread.sleep(60 * 1000);
+			System.out.println("\n");
+			usuario.finalizarAlquiler("Base 1");
+			System.out.println("\n");
+			usuario.visualizarVehiculosDisponibles();
+			System.out.println("\n");
+			usuario.visualizarHistoricoAlquileres();
+			System.out.println("\n");
+
+			System.out.println("alquilar moto");
+			usuario.alquilarVehiculo("moto pequeña", null, 3, 3);
+			Thread.sleep(60 * 1000);
+			System.out.println("\n");
+			usuario.finalizarAlquiler(4, 4);
+			System.out.println("\n");
+			usuario.visualizarVehiculosDisponibles();
+			System.out.println("\n");
+			usuario.visualizarHistoricoAlquileres();
+			System.out.println("\n");
+
+			System.out.println("obtener Usuarios A Promocionar");
+			administrador.obtenerUsuariosAPromocionar();
+			System.out.println("\n");
+
+			System.out.println("Promocionar usuario");
+			administrador.promocionarUsuario("14967154L");
+			System.out.println("\n");
+
+			System.out.println("Buscando usuarios premium");
+			administrador.buscarUsuario(null, null, null, null,true);
+			System.out.println("\n");
+
 
 			// FLUJO LISTADOS Y ESTADÍSTICAS
 			System.out.println("obtener Listado Bases Segun Demanda \n");
 			administrador.obtenerListadoBasesSegunDemanda(false);
 
 			System.out.println("obtener Listado Vehiculos Reparados");
-			administrador.obtenerListadoVehiculosReparados("01/05/2025", "10/05/2025");
+			administrador.obtenerListadoVehiculosReparados("01/05/2025", "13/05/2025");
 
 			System.out.println("obtener Listado Encargados Y Mecanicos");
 			administrador.obtenerListadoEncargadosYMecanicos();
@@ -345,7 +347,7 @@ public class MovilidadApplication {
 			System.out.println("\n");
 
 			System.out.println("obtener Listado Usuarios Segun Gasto En Alquiler");
-			administrador.obtenerListadoUsuariosSegunGastoEnAlquiler("01/05/2025", "10/05/2025");
+			administrador.obtenerListadoUsuariosSegunGastoEnAlquiler("01/05/2025", "13/05/2025");
 			System.out.println("\n");
 
 		};
